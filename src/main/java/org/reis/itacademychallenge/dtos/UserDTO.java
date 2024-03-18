@@ -11,5 +11,5 @@ import java.util.List;
 public class UserDTO {
     String name;
     String cpf;
-    private List<BetEntity> bets;
+    private List<BetDTO> bets;
 }

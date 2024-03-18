@@ -1,5 +1,6 @@
 package org.reis.itacademychallenge.service;
 
+import org.reis.itacademychallenge.dtos.BetDTO;
 import org.reis.itacademychallenge.dtos.UserDTO;
 import org.reis.itacademychallenge.entity.BetEntity;
 import org.reis.itacademychallenge.entity.UserEntity;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -20,8 +22,18 @@ public class UserService {
         user.setCpf(userDto.getCpf());
         user.setBets(new ArrayList<>());
         if(userDto.getBets() != null) {
-            for (BetEntity bets : userDto.getBets()) {
-                user.getBets().add(bets);
+            for (BetDTO bets : userDto.getBets()) {
+                BetEntity bet = new BetEntity();
+                List<Integer> numbers = new ArrayList<>();
+                String[] numeros = bets.getNumbers().split(",");
+                
+                for(String numStr : numeros) {
+                    numbers.add(Integer.parseInt(numStr));
+                }
+                
+                
+                bet.setNumbers(numbers);
+                user.getBets().add(bet);
             }
 
         }
