@@ -4,40 +4,50 @@ import './App.css'
 
 function App() {
 
-  const [response, setResponse] = useState('');
-  const { register, handleSubmit }  = useForm();
+  const [sequence, setSequence] = useState('');
+  const [name, setName] = useState('');
+  const [cpf, setCpf] = useState('');
 
-  
-  
-  
-  const onSubmit = async ( data ) => {
-    console.log(data);
+  const handleSubmit = (event) => {
+
+    event.preventDefault();
     
-    try {
-        const response = await fetch('http://localhost:8080/user', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'     
-        },
-        body: JSON.stringify({ data })
-      });
+    const bet = {
+      numbers: sequence
+    }
+    const newBet = {
+      name: name,
+      cpf: cpf,
+      bets: [bet],
+    } 
 
-      const responseData = await response.json();
-      setResponse(responseData);
-    }
-    catch (err) {
-      console.error(err);
-    }
+    console.log(newBet);
+    
+    fetch("http://localhost:8080/user",{
+      method: "POST",
+      headers: {'Content-type': 'application/json'},
+      body: JSON.stringify(newBet)
+    }).then(() => {
+      console.log("New bet added.");
+    })
+    
+    setName("")
+    setCpf("")
+    setSequence("")
   }
+  
 
   return (
     <div>
+      <form onSubmit={handleSubmit}>
         <label>
           Name:
           <input
             type="text"
             placeholder='seu nome'
-            {...register('name')}
+            id='nome'
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
         </label>
         <br />
@@ -46,7 +56,9 @@ function App() {
           <input
             type="text"
             placeholder='seu CPF'
-            {...register('cpf')}
+            id='cpf'
+            value={cpf}
+            onChange={(e) => setCpf(e.target.value)}
           />
         </label>
         <br />
@@ -55,12 +67,14 @@ function App() {
             <input
               type="text"
               placeholder='seus numeros'
-              {...register('numbers')}
+              id='numbers'
+              value={sequence}
+              onChange={(e) => setSequence(e.target.value)}
             />
         </label>
         <br />
-        <button onClick={() => handleSubmit(onSubmit)()}>Submit</button>
-      <div>Response: {response}</div>
+        <button type='submit'>Submit</button>
+      </form>
     </div>
   );
   }
