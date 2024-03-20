@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @GetMapping("/game")
-    public Boolean startBets(){
+    public List<UserEntity> startBets(){
         return betService.startGame();
     }
 

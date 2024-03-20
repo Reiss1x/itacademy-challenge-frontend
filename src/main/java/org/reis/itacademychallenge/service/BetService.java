@@ -19,11 +19,12 @@ public class BetService {
     @Autowired
     private UserService userService;
 
-    public Boolean startGame(){
+    public List<UserEntity> startGame(){
         boolean vencedores = false;
         Random rand = new Random();
         List<UserEntity> users = repo.findAll();
         List<Integer> winnerBet = new ArrayList<>();
+        List<UserEntity> winners = new ArrayList<>();
         int rodadas = 0;
 
         while (winnerBet.size() < 5){
@@ -49,12 +50,14 @@ public class BetService {
                         if(user.getWins() != null) user.setWins(user.getWins() + 1);
                         else user.setWins(1);
                         repo.save(user);
+                        winners.add(user);
+
                     }
                 }
             }
             winnerBet.add(rand.nextInt(50)+1);
             rodadas++;
         }
-        return vencedores;
+        return winners;
     }
 }
