@@ -1,80 +1,41 @@
-import { useState } from 'react';
-import { useForm } from 'react-hook-form'
+import Form from './components/Form';
+import Table from './components/Table/Table';
 import './App.css'
+import { useState, useEffect } from 'react';
 
 function App() {
+  const [data, setData] = useState([])
+  const [render, setRender] = useState(false);
 
-  const [sequence, setSequence] = useState('');
-  const [name, setName] = useState('');
-  const [cpf, setCpf] = useState('');
+  const apiKey = "http://localhost:8080/"
 
-  const handleSubmit = (event) => {
+  useEffect(() => {
+      const fetchUsers = async () => {
+        await fetch (`${apiKey}user`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        }).then((response) => {
+          response.json().then((json) => {
+            if(json.length>0){setData(json)}
+            console.log(json);
+            setRender(false);
+          })  
+        }).catch(error => {console.log(error)});
+      }
+      fetchUsers();
+    }, [render])
 
-    event.preventDefault();
-    
-    const bet = {
-      numbers: sequence
+    const handleSubmit = () => {
+      setRender(true);
     }
-    const newBet = {
-      name: name,
-      cpf: cpf,
-      bets: [bet],
-    } 
 
-    console.log(newBet);
-    
-    fetch("http://localhost:8080/user",{
-      method: "POST",
-      headers: {'Content-type': 'application/json'},
-      body: JSON.stringify(newBet)
-    }).then(() => {
-      console.log("New bet added.");
-    })
-    
-    setName("")
-    setCpf("")
-    setSequence("")
-  }
-  
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input
-            type="text"
-            placeholder='seu nome'
-            id='nome'
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          CPF:
-          <input
-            type="text"
-            placeholder='seu CPF'
-            id='cpf'
-            value={cpf}
-            onChange={(e) => setCpf(e.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          Bet Numbers:
-            <input
-              type="text"
-              placeholder='seus numeros'
-              id='numbers'
-              value={sequence}
-              onChange={(e) => setSequence(e.target.value)}
-            />
-        </label>
-        <br />
-        <button type='submit'>Submit</button>
-      </form>
+    <div id='game-container'>
+      <Form onSubmit={handleSubmit}/>
+      <Table data={data}/>
     </div>
   );
   }
