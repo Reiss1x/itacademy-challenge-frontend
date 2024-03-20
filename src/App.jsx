@@ -2,6 +2,7 @@ import Form from './components/Form';
 import Table from './components/Table/Table';
 import './App.css'
 import { useState, useEffect } from 'react';
+import Game from './components/game/Game';
 
 function App() {
   const [data, setData] = useState([])
@@ -36,6 +37,7 @@ function App() {
     <div id='game-container'>
       <Form onSubmit={handleSubmit}/>
       <Table data={data}/>
+      <Game></Game>
     </div>
   );
   }
