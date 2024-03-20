@@ -2,6 +2,7 @@ package org.reis.itacademychallenge.controller;
 
 import org.apache.catalina.User;
 import org.reis.itacademychallenge.dtos.BetDTO;
+import org.reis.itacademychallenge.dtos.BetUpdateDTO;
 import org.reis.itacademychallenge.dtos.UserDTO;
 import org.reis.itacademychallenge.service.BetService;
 import org.springframework.stereotype.Controller;
@@ -33,9 +34,12 @@ public class UserController {
     }
 
     @PostMapping("/addBet")
-    public UserEntity addBet(@RequestBody BetDTO bet, @RequestParam("cpf") String cpf) {
-        return userService.addBet(bet, cpf);
+    public UserEntity addBet(@RequestBody BetUpdateDTO bet) {
+        BetDTO betDto = new BetDTO();
+        betDto.setNumbers(bet.getNumbers());
+        return userService.addBet(betDto, bet.getCpf());
     }
+
     @GetMapping
     public List<UserEntity> getUsers() {
         return userService.getUsers();
