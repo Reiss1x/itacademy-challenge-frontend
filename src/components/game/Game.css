@@ -1,0 +1,16 @@
+.game-area-container {
+    flex-direction: column;
+    display: flex;
+    width: 100%;
+    background: linear-gradient(0deg, rgba(148,0,13,1) 18%, rgba(99,1,0,1) 68%);
+    border-radius: inherit;
+    color: white;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 30px;
+    min-height: 40vw;
+}
+
+.back-button {
+    width: 50%;
+}

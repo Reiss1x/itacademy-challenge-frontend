@@ -1,25 +1,24 @@
 table{
   border-collapse: collapse;
-  width: 50%;
   table-layout: fixed;
-  margin-left: 420px;
-  margin-bottom: 30px;
+  width: 100%;
+  
 }
 
 
 
 td:first-child, th:first-child{
   text-align: center;
-  width: 5%;
+  width: 8%;
 }
 
 
 th, td{
-  border: 1px solid #707070;
-  padding: 8px;
+  border: 1px solid white;
+  padding: 5px;
   text-align: left;
-  width: 25%;
-  color: #707070;
+  width: 50%;
+  color: white;
 }
 
 th {

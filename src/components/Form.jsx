@@ -18,7 +18,7 @@ export default function Form({ onSubmit }) {
 
 
     const handleGen = () => {
-      fetch(`${apiKey}user`,{
+      fetch(`${apiKey}user/multiple`,{
       method: "POST",
       headers: {'Content-type': 'application/json'},
       body: JSON.stringify(sampleUsers)
@@ -29,6 +29,18 @@ export default function Form({ onSubmit }) {
     setNewBetValidSequence(true);
     setNewBetCpf("")
     setNewBetSequence("")
+
+    }
+
+    const handleRemove = () => {
+      fetch(`${apiKey}user/deleteAll`,{
+        method: "POST",
+        headers: {'Content-type': 'application/json'},
+      }).then(() => {
+        console.log("All users removed");
+        onSubmit()
+      })
+      setNewBetSequence("")
 
     }
     
@@ -98,6 +110,7 @@ export default function Form({ onSubmit }) {
       setSequence("")
       } 
     }).catch(error => {
+      console.log(error);
       console.log(`Usuário com cpf ${cpf} já cadastrado.`);
     })
     
@@ -105,12 +118,14 @@ export default function Form({ onSubmit }) {
 
   return (
     <div className='form-container'>
+      <h1>MEGA SENA</h1>
+      <p>Adicionar jogador:</p>
         <form onSubmit={handleSubmit}>
             <div className='form-group'>
             <input
             className='form-input'
             type="text"
-            placeholder='Seu Nome'
+            placeholder='Nome'
             id='nome'
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -123,7 +138,7 @@ export default function Form({ onSubmit }) {
             <input
             className='form-input'
             type="text"
-            placeholder='Seu CPF'
+            placeholder='CPF'
             id='cpf'
             value={cpf}
             onChange={(e) => setCpf(e.target.value)}
@@ -146,10 +161,11 @@ export default function Form({ onSubmit }) {
             />
             {!validSequence && <p className="error-message">*5 números diferentes separados por vírgula</p>}
         </div>
-        <button type='submit' id='submit-button' disabled={!validSequence}>Adicionar Jogador</button>
+        <button type='submit' id='add-button' disabled={!validSequence}>Adicionar Jogador</button>
       </form>
-      <hr />
-      <form onSubmit={handleBetSubmit}>
+     
+      <form onSubmit={handleBetSubmit }>
+      <p>Adicionar aposta a jogador:</p>
         <div className='form-group'>
             <input
             className='form-input'
@@ -176,9 +192,13 @@ export default function Form({ onSubmit }) {
         {!newBetValidSequence && <p className="error-message">*5 números separados por vírgula</p>}
         </div>
         <button type='submit' id='submit-button'> Adicionar aposta </button>
-        <button type='button' id='generate-button' onClick={handleGen}> Gerar Usuários </button>
-
       </form>
+      <div className='lower-buttons'>
+        <button type='button' id='generate-button' onClick={handleGen}> Gerar Jogadores</button>
+        <button type='button' id='remove-button' onClick={handleRemove}> Remover Jogadores</button>
+        
+      </div>
+      
     </div>
 
   )

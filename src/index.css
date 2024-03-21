@@ -1,0 +1,15 @@
+:root {
+    --background-color: #1c0410;
+    --dark-red: #630100;
+    --light-red: #94000d;
+    --light-yellow: #e7c600;
+    --orange: #ad3f01;
+}
+
+h1 {
+    -webkit-box-shadow: 2px 7px 24px 9px rgba(0,0,0,0.54);
+-moz-box-shadow: 2px 7px 24px 9px rgba(0,0,0,0.54);
+box-shadow: 2px 7px 24px 9px rgba(0,0,0,0.54);  
+padding: 20px;
+border-radius: 10px;
+}
