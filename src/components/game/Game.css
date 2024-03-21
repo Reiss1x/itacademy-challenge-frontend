@@ -14,3 +14,16 @@
 .back-button {
     width: 50%;
 }
+
+#trophy {
+    font-size: 100px;
+    margin: 0;
+}
+
+.no-winners {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0;
+    font-size: 13px;
+}

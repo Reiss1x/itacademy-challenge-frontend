@@ -1,16 +1,19 @@
 import React from 'react'
 import { useState } from 'react';
 import sampleUsers from '../assets/Sample.json'
+import { API_BASE_URL } from '../config/apiConfig';
 import './Form.css'
 
 export default function Form({ onSubmit }) {
 
-    const apiKey = "https://itacademy-challenge-production.up.railway.app/"
+    const apiKey = API_BASE_URL;
 
     const [sequence, setSequence] = useState('');
     const [validSequence, setValidSequence] = useState(true);
     const [name, setName] = useState('');
     const [cpf, setCpf] = useState('');
+
+    const [cpfCadastrado, setCpfCadastrado] = useState(false);
      
     const [newBetSequence, setNewBetSequence] = useState('');
     const [newBetValidSequence, setNewBetValidSequence] = useState(true);
@@ -32,13 +35,13 @@ export default function Form({ onSubmit }) {
 
     }
 
-    const handleRemove = () => {
-      fetch(`${apiKey}user/deleteAll`,{
+    const handleRemove = async () => {
+      await fetch(`${apiKey}user/deleteAll`,{
         method: "POST",
         headers: {'Content-type': 'application/json'},
       }).then(() => {
         console.log("All users removed");
-        onSubmit()
+        onSubmit("remove")
       })
       setNewBetSequence("")
 
@@ -111,14 +114,14 @@ export default function Form({ onSubmit }) {
       } 
     }).catch(error => {
       console.log(error);
-      console.log(`Usuário com cpf ${cpf} já cadastrado.`);
+      setCpfCadastrado(true);
     })
     
   }
 
   return (
     <div className='form-container'>
-      <h1>MEGA SENA</h1>
+      <h1>💸MEGA SENA💸</h1>
       <p>Adicionar jogador:</p>
         <form onSubmit={handleSubmit}>
             <div className='form-group'>
@@ -162,6 +165,7 @@ export default function Form({ onSubmit }) {
             {!validSequence && <p className="error-message">*5 números diferentes separados por vírgula</p>}
         </div>
         <button type='submit' id='add-button' disabled={!validSequence}>Adicionar Jogador</button>
+        {cpfCadastrado && <p className="error-message">*cpf já cadastrado, adicione uma nova aposta abaixo</p>}
       </form>
      
       <form onSubmit={handleBetSubmit }>
@@ -195,8 +199,8 @@ export default function Form({ onSubmit }) {
         
       </form>
       <div className='lower-buttons'>
-        <button type='button' id='generate-button' onClick={handleGen}> Gerar Jogadores</button>
-        <button type='button' id='remove-button' onClick={handleRemove}> Remover Jogadores</button>
+        <button title="Adiciona jogadores aleatórios" type='button' id='generate-button' onClick={handleGen}> Gerar Jogadores</button>
+        <button title="Remove todos os jogadores"type='button' id='remove-button' onClick={handleRemove}> Remover Jogadores</button>
         
         
       </div>

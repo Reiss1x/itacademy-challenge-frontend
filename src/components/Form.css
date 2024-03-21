@@ -20,6 +20,9 @@ button {
     background: rgba(46,2,3,1);
     color: white;
     font-weight: bolder;
+      -webkit-box-shadow: 2px 7px 24px 9px rgba(0,0,0,0.54);
+  -moz-box-shadow: 2px 7px 24px 9px rgba(0,0,0,0.54);
+  box-shadow: 2px 7px 24px 9px rgba(0,0,0,0.54);
 }
 
 button:active {
