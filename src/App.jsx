@@ -87,7 +87,7 @@ function App() {
       }
         
       </div>
-      <div>Feito por: Gabriel Reis <br />
+      <div id='credit'>Feito por: Gabriel Reis <br />
       Itacademy
       </div>
     </div>
