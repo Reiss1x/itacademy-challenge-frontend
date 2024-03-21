@@ -5,7 +5,7 @@ import './Form.css'
 
 export default function Form({ onSubmit }) {
 
-    const apiKey = "http://localhost:8080/"
+    const apiKey = "https://itacademy-challenge-production.up.railway.app"
 
     const [sequence, setSequence] = useState('');
     const [validSequence, setValidSequence] = useState(true);

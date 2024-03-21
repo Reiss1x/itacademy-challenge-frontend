@@ -9,7 +9,7 @@ export default function Game({ onResetClick }) {
 
   const [noWinners, setNoWinners] = useState(true)
 
-    const apiKey = "http://localhost:8080/"
+    const apiKey = "https://itacademy-challenge-production.up.railway.app"
 
     useEffect(() => {
         fetch (`${apiKey}user/game`, {

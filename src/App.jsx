@@ -10,7 +10,7 @@ function App() {
   const [scene, setScene] = useState("start");
   const [list, setList]  = useState(false);
 
-  const apiKey = "http://localhost:8080/"
+  const apiKey = "https://itacademy-challenge-production.up.railway.app"
 
   useEffect(() => {
       const fetchUsers = async () => {
