@@ -33,7 +33,7 @@ export default function Game({ onResetClick }) {
 
   return (
     <div className='game-area-container'>
-      {
+      { 
         !noWinners ? (
           <div>
             <h1>MEGA SENA</h1>

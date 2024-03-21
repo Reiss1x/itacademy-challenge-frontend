@@ -7,7 +7,8 @@ import Game from './components/game/Game';
 function App() {
   const [data, setData] = useState([])
   const [render, setRender] = useState(false);
-  const [play, setPlay] = useState(false);
+  const [scene, setScene] = useState("start");
+  const [list, setList]  = useState(false);
 
   const apiKey = "http://localhost:8080/"
 
@@ -33,39 +34,58 @@ function App() {
       setRender(true);
     }
 
-    const handleReset = () => {
-      setPlay(false);
-      setLeaderboard(true)
-    }
+
 
 
   return (
     <div id='game-container'>
       <div className='main-container'>
-      {
-        !play ? (
+        {
+          scene === "start" && (
+            <div className='start-scene'>
+              <h1>MEGA SENA</h1>
+              <p>clique para jogar:</p>
+              <button onClick={() => {
+                setScene("register")
+                setList(false)
+                }}>Iniciar</button>
+            </div>
+          )
+
+        }
+      { scene === "register" && (
             <div className='main-game'>
               <div className='form'>
                 <Form onSubmit={handleSubmit}/>
-                <button className='play-button' onClick={() => setPlay(true)}> JOGAR </button>
-              
+                <button type='button' id='list-button' onClick={() => setList(true)}> Listar Jogadares</button>
+                <button className='play-button' onClick={() => {setScene("play")
+              setList(false)}}> JOGAR </button>
               </div>
             {data.length>0 ? (
             <div className='table-container'>
-              <p>Jogadores:</p>
-              <Table data={data}/>
+              {
+                list && (
+                  <div>
+                    <p>Jogadores:</p>
+                    <Table data={data}/>
+                  </div>
+                  
+                )
+              }
+              
             </div>
             ) : null}
-          
-          
-      </div> 
+            </div> 
         )
-        : (
-          <div className='game'>
-            <Game onResetClick={handleReset}/>
-          </div>
+      }
+      {
+         scene === "play" && (
+         <div className='game'>
+           <Game onResetClick={() => setScene("start")}/>
+         </div>
       )
       }
+        
       </div>
       <div>Feito por: Gabriel Reis <br />
       Itacademy

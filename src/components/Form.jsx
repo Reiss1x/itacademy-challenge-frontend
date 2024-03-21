@@ -11,7 +11,7 @@ export default function Form({ onSubmit }) {
     const [validSequence, setValidSequence] = useState(true);
     const [name, setName] = useState('');
     const [cpf, setCpf] = useState('');
-
+     
     const [newBetSequence, setNewBetSequence] = useState('');
     const [newBetValidSequence, setNewBetValidSequence] = useState(true);
     const [newBetCpf, setNewBetCpf] = useState('');
@@ -77,6 +77,7 @@ export default function Form({ onSubmit }) {
     setNewBetValidSequence(true);
     setNewBetCpf("")
     setNewBetSequence("")
+    
   }
 
   const handleSubmit = (event) => {
@@ -103,7 +104,6 @@ export default function Form({ onSubmit }) {
         throw new Error()
       } else{
       console.log("New bet added.");
-      onSubmit()
       setValidSequence(true);
       setName("")
       setCpf("")
@@ -192,10 +192,12 @@ export default function Form({ onSubmit }) {
         {!newBetValidSequence && <p className="error-message">*5 números separados por vírgula</p>}
         </div>
         <button type='submit' id='submit-button'> Adicionar aposta </button>
+        
       </form>
       <div className='lower-buttons'>
         <button type='button' id='generate-button' onClick={handleGen}> Gerar Jogadores</button>
         <button type='button' id='remove-button' onClick={handleRemove}> Remover Jogadores</button>
+        
         
       </div>
       
