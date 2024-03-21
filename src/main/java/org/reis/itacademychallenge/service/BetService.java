@@ -1,6 +1,7 @@
 package org.reis.itacademychallenge.service;
 
 import org.apache.catalina.User;
+import org.reis.itacademychallenge.dtos.WinnersDTO;
 import org.reis.itacademychallenge.entity.BetEntity;
 import org.reis.itacademychallenge.entity.UserEntity;
 import org.reis.itacademychallenge.repositories.UserRepository;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -19,19 +21,31 @@ public class BetService {
     @Autowired
     private UserService userService;
 
-    public List<UserEntity> startGame(){
+    public WinnersDTO startGame(){
+
+        List<Integer> list = new ArrayList<Integer>();
+        
+        for(int x =0; x < 51; x++){
+            list.add(x);
+        }
+        Collections.shuffle(list);
+
+
         boolean vencedores = false;
-        Random rand = new Random();
         List<UserEntity> users = repo.findAll();
         List<Integer> winnerBet = new ArrayList<>();
         List<UserEntity> winners = new ArrayList<>();
+        List<Integer> winnerUserBet = new ArrayList<>();
         int rodadas = 0;
 
-        while (winnerBet.size() < 5){
-            winnerBet.add(rand.nextInt(50)+1);
-        }
+        if(users.isEmpty()) return null;
 
-        while(!vencedores || rodadas == 25){
+        while (winnerBet.size() < 5){
+            winnerBet.add(list.get(0));
+            list.remove(0);
+        }
+        outerloop:
+        while(rodadas <25){    
 
             //iterando sobre jogador
             for(UserEntity user : users) {
@@ -46,18 +60,35 @@ public class BetService {
                         }
                     }
                     if(apostaVencedora){
+                        winnerUserBet = (bet.getNumbers());
                         vencedores = true;
-                        if(user.getWins() != null) user.setWins(user.getWins() + 1);
-                        else user.setWins(1);
+                        user.setWins(1);
                         repo.save(user);
                         winners.add(user);
-
+                        break outerloop;
                     }
                 }
             }
-            winnerBet.add(rand.nextInt(50)+1);
+            winnerBet.add(list.get(0));
+            list.remove(0);
+            if (vencedores) break;
             rodadas++;
         }
-        return winners;
-    }
+        List<String> winnersCpf = new ArrayList<String>();
+        List<String> winnersName = new ArrayList<String>();
+        if (!(winners.isEmpty())) {
+            WinnersDTO gameWinners = new WinnersDTO();
+            for(UserEntity user : winners){
+                winnersCpf.add(user.getCpf());
+                winnersName.add(user.getName());
+
+            }
+            gameWinners.setRounds(rodadas);
+            gameWinners.setWinnersCPF(winnersCpf);
+            gameWinners.setWinnersName(winnersName);
+            gameWinners.setNumbersDrawed(winnerBet);
+            gameWinners.setWinnerBet(winnerUserBet);
+            return gameWinners;
+        } else return null;
+    }   
 }

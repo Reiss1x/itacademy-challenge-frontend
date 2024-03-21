@@ -4,11 +4,13 @@ import org.apache.catalina.User;
 import org.reis.itacademychallenge.dtos.BetDTO;
 import org.reis.itacademychallenge.dtos.BetUpdateDTO;
 import org.reis.itacademychallenge.dtos.UserDTO;
+import org.reis.itacademychallenge.dtos.WinnersDTO;
 import org.reis.itacademychallenge.service.BetService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.reis.itacademychallenge.service.UserService;
 import org.reis.itacademychallenge.entity.UserEntity;
 
@@ -24,12 +26,19 @@ public class UserController {
     private BetService betService;
 
     @PostMapping()
-    public void registerBet(@RequestBody UserDTO userDto){
-        userService.saveUser(userDto);
+    public ResponseEntity<String> registerBet(@RequestBody List<UserDTO> usersDto){
+        try {
+            for(UserDTO userDto : usersDto){
+                userService.saveUser(userDto);
+            }
+            return new ResponseEntity<>("Usuário cadastrado.", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Usuário com cpf já cadastrado.", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/game")
-    public List<UserEntity> startBets(){
+    public WinnersDTO startBets(){  
         return betService.startGame();
     }
 
