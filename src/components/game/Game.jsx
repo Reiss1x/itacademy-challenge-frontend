@@ -1,11 +1,17 @@
-import React from 'react'
-
+import React, { useState } from 'react'
+  
 export default function Game() {
+
+  const [data, setData] = useState({});
+  const [winnerBets, setWinnerBets] = useState("");
+  const [numbersDrawed, setNumbersDrawed] = useState("");
+
+  const [noWinners, setNoWinners] = useState(false)
 
     const apiKey = "http://localhost:8080/"
 
 
-    const handleGame = (event) => {
+    const handleGame = () => {
         const fetchWinners = async () => {
         await fetch (`${apiKey}user/game`, {
           method: 'GET',
@@ -14,22 +20,33 @@ export default function Game() {
           }
         }).then((response) => {
           response.json().then((json) => {
-            if(json.length>0){setData(json)}
-            console.log(json);
-            setRender(false);
-          })  
-        }).catch(error => {console.log(error)});
+            setData(json) 
+            setNumbersDrawed(json.numbersDrawed.join(","));
+            setWinnerBets(json.winnerBet.join(","));
+          })
+        }).catch(error => {
+          console.log(error);
+          setNoWinners(true)
+        });
       }
-      fetchWinners();
+      fetchWinners(); 
+      console.log(data);
+      
     }
+
+    
+
 
   return (
     <div>
-        <button onClick={handleGame}></button>
+        <button onClick={handleGame}> AAAAAAAAA</button>
         <h1>Mega Sena</h1>
-        <p>Rodadas:</p>
-        <p>Vencedores:</p>
-        <p></p>
+        
+        <p>Rodadas: {data.rounds}</p>
+        <p>Vencedores: {data.winnersName}</p>
+        <p>Números sorteados: {numbersDrawed ? numbersDrawed : ""}</p>
+        <p>Aposta vencedora: {winnerBets}</p>
+        <p>{noWinners ? "Não houve vencedores." : ""}</p>
     </div>
   )
 }

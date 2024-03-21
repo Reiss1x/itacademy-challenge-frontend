@@ -1,5 +1,4 @@
 const TableData = ({users}) => {
-    console.log("alos",users);
 
     function betsToString(player) {
     return player.bets.map(bet => bet.numbers.join('.')).join(' | ');

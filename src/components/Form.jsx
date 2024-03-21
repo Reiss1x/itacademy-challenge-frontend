@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
+import sampleUsers from '../assets/Sample.json'
 import './Form.css'
 
 export default function Form({ onSubmit }) {
@@ -14,11 +15,27 @@ export default function Form({ onSubmit }) {
     const [newBetSequence, setNewBetSequence] = useState('');
     const [newBetValidSequence, setNewBetValidSequence] = useState(true);
     const [newBetCpf, setNewBetCpf] = useState('');
+
+
+    const handleGen = () => {
+      fetch(`${apiKey}user`,{
+      method: "POST",
+      headers: {'Content-type': 'application/json'},
+      body: JSON.stringify(sampleUsers)
+    }).then(() => {
+      console.log("sample users added");
+      onSubmit()
+    })
+    setNewBetValidSequence(true);
+    setNewBetCpf("")
+    setNewBetSequence("")
+
+    }
     
     const handleBetChange = (event) => {
         event.target.id == "numbers" ? setSequence(event.target.value) : setNewBetSequence(event.target.value)
     
-        if(!(/^([0-9]|[1-4][0-9]|50)(,([0-9]|[1-4][0-9]|50)){4}$/.test(event.target.value))){
+        if(!(/^(\d+),(?!\1)(\d+),(?!\1|\2)(\d+),(?!\1|\2|\3)(\d+),(?!\1|\2|\3|\4)(\d+)$/.test(event.target.value))){
             event.target.id == "numbers" ? setValidSequence(false) : setNewBetValidSequence(false);
             
         } else {   
@@ -69,14 +86,21 @@ export default function Form({ onSubmit }) {
       method: "POST",
       headers: {'Content-type': 'application/json'},
       body: JSON.stringify(newBet)
-    }).then(() => {
+    }).then(response => {
+      if(!response.ok){
+        throw new Error()
+      } else{
       console.log("New bet added.");
       onSubmit()
+      setValidSequence(true);
+      setName("")
+      setCpf("")
+      setSequence("")
+      } 
+    }).catch(error => {
+      console.log(`Usuário com cpf ${cpf} já cadastrado.`);
     })
-    setValidSequence(true);
-    setName("")
-    setCpf("")
-    setSequence("")
+    
   }
 
   return (
@@ -120,7 +144,7 @@ export default function Form({ onSubmit }) {
             autoComplete="off"
             
             />
-            {!validSequence && <p className="error-message">*5 números separados por vírgula</p>}
+            {!validSequence && <p className="error-message">*5 números diferentes separados por vírgula</p>}
         </div>
         <button type='submit' id='submit-button' disabled={!validSequence}>Adicionar Jogador</button>
       </form>
@@ -152,6 +176,8 @@ export default function Form({ onSubmit }) {
         {!newBetValidSequence && <p className="error-message">*5 números separados por vírgula</p>}
         </div>
         <button type='submit' id='submit-button'> Adicionar aposta </button>
+        <button type='button' id='generate-button' onClick={handleGen}> Gerar Usuários </button>
+
       </form>
     </div>
 
