@@ -88,7 +88,15 @@ public class BetService {
             gameWinners.setWinnersName(winnersName);
             gameWinners.setNumbersDrawed(winnerBet);
             gameWinners.setWinnerBet(winnerUserBet);
+            gameWinners.setWin(true);
             return gameWinners;
-        } else return null;
+        } else {
+            WinnersDTO gameWinners = new WinnersDTO();
+            gameWinners.setRounds(rodadas);
+            gameWinners.setNumbersDrawed(winnerBet);
+
+            gameWinners.setWin(false);
+            return gameWinners;
+        }
     }   
 }

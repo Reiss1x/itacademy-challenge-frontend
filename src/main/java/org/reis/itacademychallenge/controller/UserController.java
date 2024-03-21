@@ -25,12 +25,21 @@ public class UserController {
     @Autowired
     private BetService betService;
 
-    @PostMapping()
-    public ResponseEntity<String> registerBet(@RequestBody List<UserDTO> usersDto){
+    @PostMapping("/multiple")
+    public ResponseEntity<String> registerBets(@RequestBody List<UserDTO> usersDto){
         try {
             for(UserDTO userDto : usersDto){
                 userService.saveUser(userDto);
             }
+            return new ResponseEntity<>("Usuário cadastrado.", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Usuário com cpf já cadastrado.", HttpStatus.BAD_REQUEST);
+        }
+    }
+    @PostMapping()
+    public ResponseEntity<String> registerBet(@RequestBody UserDTO userDto){
+        try {
+            userService.saveUser(userDto);
             return new ResponseEntity<>("Usuário cadastrado.", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Usuário com cpf já cadastrado.", HttpStatus.BAD_REQUEST);

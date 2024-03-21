@@ -11,12 +11,13 @@ import org.reis.itacademychallenge.entity.UserEntity;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Data
 public class WinnersDTO {
      List<String> winnersCPF;
      List<String> winnersName;
      Integer rounds;
      List<Integer> numbersDrawed;
      List<Integer> winnerBet;
-     
+     boolean win;
 
 }
