@@ -107,6 +107,7 @@ export default function Form({ onSubmit }) {
         throw new Error()
       } else{
       console.log("New bet added.");
+      onSubmit()
       setValidSequence(true);
       setName("")
       setCpf("")
