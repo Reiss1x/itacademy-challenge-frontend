@@ -18,6 +18,7 @@ public class WinnersDTO {
      Integer rounds;
      List<Integer> numbersDrawed;
      List<Integer> winnerBet;
+     int playerCount;
      boolean win;
 
 }

@@ -89,6 +89,7 @@ public class BetService {
             gameWinners.setNumbersDrawed(winnerBet);
             gameWinners.setWinnerBet(winnerUserBet);
             gameWinners.setWin(true);
+            gameWinners.setPlayerCount(users.size());
             return gameWinners;
         } else {
             WinnersDTO gameWinners = new WinnersDTO();
