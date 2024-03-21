@@ -7,6 +7,7 @@ import { API_BASE_URL } from './config/apiConfig';
 
 function App() {
   const [data, setData] = useState([])
+  const [gameData, setGameData] = useState({});
   const [render, setRender] = useState(false);
   const [scene, setScene] = useState("start");
   const [list, setList]  = useState(false);
@@ -35,6 +36,18 @@ function App() {
       type === "remove" ? setList(false) : "";
       setRender(true);
     }
+
+    const fetchGame = () => {
+        fetch (`${apiKey}user/game`)
+        .then((response) => {
+            return response.json();
+        }).then(json => {
+            console.log(json);
+            setGameData(json)
+        }).catch(error => {
+          console.log(error);
+        });
+    };
 
 
 
@@ -65,7 +78,8 @@ function App() {
                     }}> Listar Jogadores</button>
                   <button className='play-button' onClick={() => {
                     setScene("apuracao")
-                setList(false)}}> JOGAR </button>
+                setList(false)
+                fetchGame()}}> JOGAR </button>
                 </div>
                   
               <div className='table-container'>
@@ -87,6 +101,7 @@ function App() {
             <div className='apuracao'>
               <h1> Carregando Apuração ⏳</h1>
               <div id='loading'>
+                
                 {
                 setTimeout(() => {
                   setScene("play");
@@ -100,7 +115,7 @@ function App() {
         {
          scene === "play" && (
          <div className='game'>
-           <Game onResetClick={() => setScene("start")}/>
+           <Game onResetClick={() => setScene("register")} gameData={gameData}/>
          </div>
         )
         }
