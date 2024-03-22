@@ -4,7 +4,7 @@ import { API_BASE_URL } from '../../config/apiConfig';
   
 export default function Game({ onResetClick, gameData }) {
 
-  const [data, setData] = useState({});
+  const [enoughPlayers, setEnoughPlayers] = useState(true);
   const [winnerBets, setWinnerBets] = useState("");
   const [numbersDrawed, setNumbersDrawed] = useState("");
 
@@ -14,29 +14,21 @@ export default function Game({ onResetClick, gameData }) {
 
   useEffect(() => {
     console.log(gameData);
-    setNumbersDrawed(gameData.numbersDrawed.join(","))
-      if(gameData.win){
-        setWinnerBets(gameData.winnerBet.join(","));
-        setNoWinners(false);
-      }
-  }), []
+    if(Object.keys(gameData).length>0) {
+      setNumbersDrawed(gameData.numbersDrawed.join(","))
 
-    // useEffect(() => {
-    //     fetch (`${apiKey}user/game`)
-    //     .then((response) => {
-    //         return response.json();
-    //     }).then(json => {
-    //         console.log(json);
-    //         setData(json)
-    //         setNumbersDrawed(json.numbersDrawed.join(","))
-    //         if(json.win){
-    //             setWinnerBets(json.winnerBet.join(","));
-    //             setNoWinners(false);
-    //         }
-    //     }).catch(error => {
-    //       console.log(error);
-    //     });
-    // }, [])
+      if(gameData.win){
+      setWinnerBets(gameData.winnerBet.join(","));
+      setNoWinners(false);
+    }
+      
+    } else {
+      setNoWinners(true);
+      setEnoughPlayers(false)
+    }
+    
+    
+  }), []
 
     const reward = (playerCount) => {
         return (playerCount * 5.25) * (gameData.rounds * 1.25);
@@ -60,7 +52,7 @@ export default function Game({ onResetClick, gameData }) {
         ) : (
           <div>
           <h1>💸MEGA SENA💸</h1>
-          {Object.keys(gameData).length === 0 ? (
+          {!enoughPlayers ? (
             <h1>Não há jogadores o suficiente.</h1>
           ) : (               
             <div>

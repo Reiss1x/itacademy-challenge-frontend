@@ -33,7 +33,11 @@ function App() {
     }, [render])
 
     const handleSubmit = (type) => {
-      type === "remove" ? setList(false) : "";
+      if(type === "remove"){
+        setList(false)
+        setGameData({});
+      }
+      
       setRender(true);
     }
 
@@ -48,10 +52,6 @@ function App() {
           console.log(error);
         });
     };
-
-
-
-
   return (
     <div id='game-container'>
       <div className='main-container'>
@@ -74,12 +74,12 @@ function App() {
                   <Form onSubmit={handleSubmit}/>
                   <button type='button' id='list-button' onClick={() => {
                     setList(true)
-                    console.log("alo");
                     }}> Listar Jogadores</button>
                   <button className='play-button' onClick={() => {
                     setScene("apuracao")
-                setList(false)
-                fetchGame()}}> JOGAR </button>
+                    setList(false)
+                    fetchGame()}
+                    }> JOGAR </button>
                 </div>
                   
               <div className='table-container'>
@@ -115,7 +115,10 @@ function App() {
         {
          scene === "play" && (
          <div className='game'>
-           <Game onResetClick={() => setScene("register")} gameData={gameData}/>
+           <Game onResetClick={() => {
+            setScene("register")
+            
+            }} gameData={gameData}/>
          </div>
         )
         }
