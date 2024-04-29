@@ -1,4 +1,4 @@
-package org.reis.itacademychallenge.entity;
+package org.reis.itacademychallenge.entities;
 
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;

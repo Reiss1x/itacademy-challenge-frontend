@@ -1,18 +1,16 @@
 package org.reis.itacademychallenge.controller;
 
-import org.apache.catalina.User;
 import org.reis.itacademychallenge.dtos.BetDTO;
 import org.reis.itacademychallenge.dtos.BetUpdateDTO;
 import org.reis.itacademychallenge.dtos.UserDTO;
 import org.reis.itacademychallenge.dtos.WinnersDTO;
+import org.reis.itacademychallenge.entities.UserEntity;
 import org.reis.itacademychallenge.service.BetService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.reis.itacademychallenge.service.UserService;
-import org.reis.itacademychallenge.entity.UserEntity;
 
 import java.util.List;
 
@@ -66,9 +64,5 @@ public class UserController {
     @PostMapping("/deleteAll")
     public void deleteAllUsers(){
         userService.deleteAll();
-    }
-    @GetMapping("/cpf")
-    public UserEntity getByCpf(){
-        return userService.findByCpf("157");
     }
 }

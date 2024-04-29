@@ -3,9 +3,6 @@ package org.reis.itacademychallenge.dtos;
 import lombok.*;
 import java.util.List;
 
-import org.reis.itacademychallenge.entity.UserEntity;
-
-
 @Getter
 @Setter
 @AllArgsConstructor

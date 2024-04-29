@@ -2,11 +2,10 @@ package org.reis.itacademychallenge.service;
 
 import org.reis.itacademychallenge.dtos.BetDTO;
 import org.reis.itacademychallenge.dtos.UserDTO;
-import org.reis.itacademychallenge.entity.BetEntity;
-import org.reis.itacademychallenge.entity.UserEntity;
+import org.reis.itacademychallenge.entities.BetEntity;
+import org.reis.itacademychallenge.entities.UserEntity;
 import org.reis.itacademychallenge.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

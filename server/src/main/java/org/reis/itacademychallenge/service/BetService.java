@@ -1,9 +1,8 @@
 package org.reis.itacademychallenge.service;
 
-import org.apache.catalina.User;
 import org.reis.itacademychallenge.dtos.WinnersDTO;
-import org.reis.itacademychallenge.entity.BetEntity;
-import org.reis.itacademychallenge.entity.UserEntity;
+import org.reis.itacademychallenge.entities.BetEntity;
+import org.reis.itacademychallenge.entities.UserEntity;
 import org.reis.itacademychallenge.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,15 +10,12 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 @Service
 public class BetService {
 
     @Autowired
     private UserRepository repo;
-    @Autowired
-    private UserService userService;
 
     public WinnersDTO startGame(){
 
