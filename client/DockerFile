@@ -13,13 +13,14 @@ WORKDIR /app/react-app
 
 COPY --from=BUILD_IMAGE /app/react-app/dist /app/react-app/dist/
 
-RUN npm install -g vite
+
 EXPOSE 5173
 
 COPY package.json .
 COPY vite.config.js .
 
+RUN npm install
 
-
+RUN npm install -g vite
 EXPOSE 5173
 CMD ["npm", "run", "preview"]
