@@ -5,9 +5,9 @@ services:
     container_name: "mongodb"
     ports:
       - "20717:20717"
-  megasena-server:
-    image: megasena-server:1.0
-    container_name: megasena-server
+  megasena-project:
+    image: megasena-project:1.0
+    container_name: megasena-project
     ports:
       - "8080:8080"
     links:
