@@ -17,6 +17,5 @@ EXPOSE 5173
 COPY package.json .
 COPY vite.config.js .
 
-RUN npm install javascript
 EXPOSE 5173
 CMD ["npm", "run", "preview"]
