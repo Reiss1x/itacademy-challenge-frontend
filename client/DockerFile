@@ -14,6 +14,8 @@ WORKDIR /app/react-app
 COPY --from=BUILD_IMAGE /app/react-app/dist /app/react-app/dist/
 EXPOSE 5173
 
+RUN npm install -g vite
+
 COPY package.json .
 COPY vite.config.js .
 
