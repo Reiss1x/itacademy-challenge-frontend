@@ -1,16 +1,14 @@
 # 💸MegaSena💸 full-stack project:
 ### Preview:
-
-  <img src="https://i.imgur.com/BLx00LO.gif" alt="Winning page">
-
+<img src="https://i.imgur.com/BLx00LO.gif" alt="Winning page">
 
 ### Objective:
 
-This project was created for a tecnical challenge, the idea was to create a betting game called "Megasena", where you can register multiple bets and then simulate a raffle.  
+This project was created for a technical challenge, the idea was to create a betting game called "Megasena", where you can register multiple bets and then simulate a raffle.  
 The aplication has a Backend built with springboot integrated with mongoDB running locally and a frontend built with ReactJS.
 
 <strong>Website to play the game: </strong>http://18.116.82.192:5173/
-### Features
+### Features:
 
 - :white_check_mark: Docker integration
 - :white_check_mark: AWS Cloud deployment
@@ -60,7 +58,7 @@ Frontend:
 
 ### What i learned:
 
-Learned a lot about gackend and frontend integration, as well as database. It was my first experience deploying a aplication in AWS and dockerizing it.
+Learned a lot about backend and frontend integration as well as database. It was my first experience dockerizing an aplication and deploying it to AWS utilizing EC2.
 
 ### Challenge repository:
 
