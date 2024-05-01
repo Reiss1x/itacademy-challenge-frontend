@@ -29,7 +29,7 @@ The aplication has a Backend built with springboot integrated with mongoDB runni
 ## How to run:
 
 **Access deployed website**:
-`http://18.116.82.192:5173/`  
+http://18.116.82.192:5173/
 or try these other options:
 
 **Running locally with docker-compose**:
