@@ -65,4 +65,4 @@ Learned a lot about backend and frontend integration as well as database. It was
 
 ### Challenge repository:
 
-https://github.com/Reiss1x/smartfit-frontend-challenge.git
+https://github.com/Reiss1x/megasena-fullstack-project.git
