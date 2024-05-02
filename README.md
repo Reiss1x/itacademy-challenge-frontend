@@ -5,7 +5,10 @@
 ### Objective:
 
 This project was created for a technical challenge, the idea was to create a betting game called "Megasena", where you can register multiple bets and then simulate a raffle.  
-The aplication has a Backend built with springboot integrated with mongoDB running locally and a frontend built with ReactJS.
+  
+The aplication has a Backend built with springboot integrated with mongoDB running locally and a frontend built with ReactJS.  
+  
+Users can register by providing their name, CPF, and bet numbers. Adding bets is done using the player's CPF and the bet. The system validates inputs and updates and persist the information on a MongoDB database. Clicking the play button triggers the backend to execute the game logic, draw numbers, and return results. Prizes are calculated based on the number of players and rounds. Users can return to the homepage to restart the game or register more players, the homepage also features buttons for creating fake players, generating 15 fake players as an example.
 
 <strong>Website to play the game: </strong>http://18.116.82.192:5173/
 ### Features:
